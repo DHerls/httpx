@@ -149,8 +149,8 @@ class HTTPTransport(BaseTransport):
     ) -> None:
         import httpcore
 
-        proxy = Proxy(url=proxy) if isinstance(proxy, (str, URL)) else proxy
         ssl_context = create_ssl_context(verify=verify, cert=cert, trust_env=trust_env)
+        proxy = Proxy(url=proxy, ssl_context=ssl_context) if isinstance(proxy, (str, URL)) else proxy
 
         if proxy is None:
             self._pool = httpcore.ConnectionPool(
